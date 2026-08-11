@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="Careers at St. Luke Hospital Calabar. Join our healthcare team. Send your CV for speculative applications.">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<title>Careers, St. Luke Hospital Calabar</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="navbar-inner">
+    <a href="../index.html" class="navbar-brand" aria-label="St. Luke Hospital home">
+      <div class="brand-cross" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="10" y="2" width="4" height="20" rx="1"/><rect x="2" y="10" width="20" height="4" rx="1"/></svg></div>
+      <div class="brand-text"><span class="brand-name">St. Luke Hospital</span><span class="brand-tagline">Calabar &middot; Est. 2026</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="doctors.html">Our Team</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="insurance.html">Insurance</a>
+      <a href="careers.html">Careers</a>
+      <a href="contact.html" class="nav-cta">Contact Us</a>
+    </div>
+    <div class="nav-emergency"><div class="nav-emergency-dot" aria-hidden="true"></div><a href="tel:+2348094441515" style="color:inherit">Emergency: 080 9444 1515</a></div>
+    <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+  <a href="../index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="services.html">Services</a>
+  <a href="doctors.html">Our Team</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="insurance.html">Insurance</a>
+  <a href="careers.html">Careers</a>
+  <a href="contact.html" class="mob-book">Contact Us</a>
+</nav>
+
+<!-- BOOKING MODAL -->
+<div class="modal-overlay" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modalTitle" style="font-size:1.45rem">Book an Appointment</h2>
+      <p>St. Luke Hospital Calabar, Fast, Easy, Secure</p>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close booking modal">&times;</button>
+    </div>
+    <div class="modal-progress">
+      <div class="progress-step active" id="ps1"></div>
+      <div class="progress-step" id="ps2"></div>
+      <div class="progress-step" id="ps3"></div>
+    </div>
+    <div class="modal-body">
+
+      <!-- STEP 1: Service + Date -->
+      <div class="step active" id="step1">
+        <p class="step-hint">Select the service you need and a preferred date.</p>
+        <div class="form-group">
+          <label for="bService">Service Required *</label>
+          <select id="bService"><option value="">Select a service</option></select>
+        </div>
+        <div class="form-group">
+          <label for="bDoctor">Preferred Doctor</label>
+          <select id="bDoctor"><option value="">No preference</option></select>
+        </div>
+        <div class="form-group">
+          <label for="bDate">Preferred Date *</label>
+          <input type="date" id="bDate">
+        </div>
+        <div class="form-group">
+          <label for="bTime">Preferred Time</label>
+          <select id="bTime"><option value="">Select a time slot</option></select>
+        </div>
+        <div class="modal-nav">
+          <button class="btn btn-primary btn-lg" onclick="goStep2()" style="width:100%;justify-content:center">Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Contact Details -->
+      <div class="step" id="step2">
+        <p class="step-hint">Please provide your contact details.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="form-group">
+            <label for="bName">Full Name *</label>
+            <input type="text" id="bName" placeholder="Your full name" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label for="bPhone">Phone Number *</label>
+            <input type="tel" id="bPhone" placeholder="08XXXXXXXXX" autocomplete="tel">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="bEmail">Email Address *</label>
+          <input type="email" id="bEmail" placeholder="your@email.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="bNotes">Additional Notes <span style="font-weight:400;color:var(--text-muted)">(optional)</span></label>
+          <textarea id="bNotes" placeholder="Briefly describe your symptoms or reason for visit..."></textarea>
+        </div>
+        <div class="modal-nav">
+          <button class="btn btn-ghost" onclick="goBack(1)">&larr; Back</button>
+          <button class="btn btn-primary" onclick="goStep3()">Review Booking &rarr;</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Review + Send -->
+      <div class="step" id="step3">
+        <p class="step-hint">Review your booking details before sending.</p>
+        <div class="review-table">
+          <div class="review-row"><span class="review-label">Service</span><span class="review-value" id="rv-service"></span></div>
+          <div class="review-row"><span class="review-label">Doctor</span><span class="review-value" id="rv-doctor"></span></div>
+          <div class="review-row"><span class="review-label">Date</span><span class="review-value" id="rv-date"></span></div>
+          <div class="review-row"><span class="review-label">Time</span><span class="review-value" id="rv-time"></span></div>
+          <div class="review-row"><span class="review-label">Name</span><span class="review-value" id="rv-name"></span></div>
+          <div class="review-row"><span class="review-label">Phone</span><span class="review-value" id="rv-phone"></span></div>
+          <div class="review-row"><span class="review-label">Email</span><span class="review-value" id="rv-email"></span></div>
+          <div class="review-row"><span class="review-label">Notes</span><span class="review-value" id="rv-notes"></span></div>
+        </div>
+        <div class="send-buttons">
+          <button class="send-btn send-wa" onclick="sendWhatsApp()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white" stroke="none" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.99 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.08-1.33A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 11.99 2z"/></svg>
+            Send via WhatsApp
+          </button>
+          <button class="send-btn send-email" onclick="sendEmail()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            Send via Email
+          </button>
+        </div>
+        <p class="send-note">Tap either button above to send your request. Your appointment is not confirmed until our team responds. We typically reply within a few hours during working hours.</p>
+        <div class="modal-nav" style="margin-top:16px">
+          <button class="btn btn-ghost btn-sm" onclick="goBack(2)" style="flex:0">&larr; Back</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="page-hero">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span>&rsaquo;</span><span style="color:var(--gold)">Careers</span></div>
+  <h1>Careers</h1>
+  <p>Join a team that puts patients first.</p>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:2fr 1fr;gap:56px;align-items:start">
+      <div>
+        <span class="section-label">Join Our Team</span>
+        <h2>Careers at St. Luke Hospital</h2>
+        <div class="divider-gold left"></div>
+        <p style="margin-top:20px">At St. Luke Hospital Calabar, we are always looking for talented, compassionate, and dedicated healthcare professionals to join our growing team. If you are passionate about delivering excellent patient care in a modern, supportive environment, we would love to hear from you.</p>
+        <p style="margin-top:14px">We offer a professional working environment, competitive remuneration, and the opportunity to be part of a hospital that is making a real difference to the health of the Calabar community.</p>
+
+        <div style="margin-top:40px">
+          <h3 style="margin-bottom:20px">Current Vacancies</h3>
+          <div class="no-vacancies reveal">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin:0 auto 14px"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+            <h4 style="margin-bottom:8px">No Open Vacancies at This Time</h4>
+            <p style="font-size:0.9rem;max-width:400px;margin:0 auto">We do not have any open positions at the moment. However, we welcome speculative applications from qualified candidates. Please send your CV to the address below.</p>
+          </div>
+        </div>
+      </div>
+      <div class="reveal" style="padding:36px;background:var(--off-white);border-radius:var(--radius-lg);border:1px solid var(--border)">
+        <span class="section-label">Speculative Applications</span>
+        <h3 style="margin-top:8px;margin-bottom:14px">Send Us Your CV</h3>
+        <div class="divider-gold left"></div>
+        <p style="margin-top:18px;font-size:0.9rem">Even when we have no open vacancies, we are happy to receive applications from passionate healthcare professionals. We keep strong CVs on file for when opportunities arise.</p>
+        <div style="margin-top:24px;display:flex;flex-direction:column;gap:10px">
+          <a href="mailto:md@stlukehospitalcalabar.com?subject=Speculative Application, [Your Profession]" class="contact-method" style="background:var(--white)"><div class="cm-icon"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div><div><div class="cm-label">Email Your CV</div><div class="cm-value" style="font-size:0.82rem">md@stlukehospitalcalabar.com</div></div></a>
+          <a href="https://wa.me/2348132930683?text=Hello%2C%20I%20would%20like%20to%20submit%20a%20speculative%20job%20application%20to%20St.%20Luke%20Hospital%20Calabar." class="contact-method" style="background:var(--white)" target="_blank" rel="noopener noreferrer"><div class="cm-icon wa"><svg viewBox="0 0 24 24" fill="white" stroke="none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.99 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.08-1.33A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 11.99 2z"/></svg></div><div><div class="cm-label">WhatsApp</div><div class="cm-value">Send us a message</div></div></a>
+        </div>
+        <div style="margin-top:20px;padding:16px;background:var(--gold-pale);border-radius:var(--radius-md)">
+          <p style="font-size:0.8rem;color:var(--text-mid)"><strong>Please include:</strong> Your full name, current role/profession, years of experience, and a brief statement of why you wish to join St. Luke Hospital.</p>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:56px;padding:40px;background:var(--navy);border-radius:var(--radius-lg);text-align:center" class="reveal">
+      <span class="section-label">Our Culture</span>
+      <h3 style="color:var(--white);margin-top:8px;margin-bottom:14px">Why Work at St. Luke?</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px;margin-top:28px">
+        <div style="text-align:center"><div style="font-size:1.6rem;color:var(--gold);margin-bottom:8px">&#10003;</div><p style="font-size:0.86rem;color:rgba(255,255,255,0.7)">Professional, respectful working environment</p></div>
+        <div style="text-align:center"><div style="font-size:1.6rem;color:var(--gold);margin-bottom:8px">&#10003;</div><p style="font-size:0.86rem;color:rgba(255,255,255,0.7)">Opportunity for growth as the hospital expands</p></div>
+        <div style="text-align:center"><div style="font-size:1.6rem;color:var(--gold);margin-bottom:8px">&#10003;</div><p style="font-size:0.86rem;color:rgba(255,255,255,0.7)">Competitive remuneration and benefits</p></div>
+        <div style="text-align:center"><div style="font-size:1.6rem;color:var(--gold);margin-bottom:8px">&#10003;</div><p style="font-size:0.86rem;color:rgba(255,255,255,0.7)">Purpose-driven work that impacts real lives</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <div class="brand-cross" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="10" y="2" width="4" height="20" rx="1"/><rect x="2" y="10" width="20" height="4" rx="1"/></svg></div>
+          <span class="footer-name">St. Luke Hospital Calabar</span>
+        </div>
+        <p class="footer-desc">Premium private healthcare serving Calabar and Cross River State. Compassionate, expert, and always patient-first.</p>
+        <div class="footer-contacts">
+          <div class="footer-ci"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6 6l.86-.86a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+2348094441515" style="color:inherit">080 9444 1515</a></div>
+          <div class="footer-ci"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6 6l.86-.86a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+2348132930683" style="color:inherit">081 3293 0683</a></div>
+          <div class="footer-ci"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><a href="mailto:md@stlukehospitalcalabar.com" style="color:inherit">md@stlukehospitalcalabar.com</a></div>
+          <div class="footer-ci"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Plot 97 Ibom Layout, Off Marian Road, Calabar</div>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul>
+        <li><a href="../pages/services.html#gyn">GYN / OBGYN</a></li>
+        <li><a href="../pages/services.html#maternity">Antenatal & Maternity</a></li>
+        <li><a href="../pages/services.html#consultation">General Consultation</a></li>
+        <li><a href="../pages/services.html#surgery">Surgery</a></li>
+        <li><a href="../pages/services.html#lab">Laboratory</a></li>
+        <li><a href="../pages/services.html#emergency">Emergency</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Hospital</h4><ul>
+        <li><a href="../pages/about.html">About Us</a></li>
+        <li><a href="../pages/doctors.html">Our Team</a></li>
+        <li><a href="../pages/gallery.html">Gallery</a></li>
+        <li><a href="../pages/insurance.html">Insurance & HMO</a></li>
+        <li><a href="../pages/careers.html">Careers</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><a href="../pages/contact.html">Contact Us</a></li>
+        <li><a href="tel:+2348094441515">080 9444 1515</a></li>
+        <li><a href="https://wa.me/2348132930683" target="_blank" rel="noopener noreferrer">WhatsApp Us</a></li>
+        <li><a href="../pages/contact.html#map">Find Us on Map</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 St. Luke Hospital Calabar. All rights reserved.</span>
+      <div style="display:flex;gap:18px">
+        <a href="../pages/privacy.html">Privacy Policy</a>
+        <a href="../pages/terms.html">Terms of Use</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

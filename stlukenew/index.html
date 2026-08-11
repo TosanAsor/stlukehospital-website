@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="St. Luke Hospital Calabar, Premium private healthcare. Expert GYN/OBGYN, maternity, surgery, laboratory, pharmacy and 24/7 emergency care in Cross River State.">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#0D2240">
+<title>St. Luke Hospital Calabar, Premium Private Healthcare</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="canonical" href="https://stlukehospitalcalabar.com/">
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-brand" aria-label="St. Luke Hospital home">
+      <div class="brand-cross" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="10" y="2" width="4" height="20" rx="1"/><rect x="2" y="10" width="20" height="4" rx="1"/></svg></div>
+      <div class="brand-text"><span class="brand-name">St. Luke Hospital</span><span class="brand-tagline">Calabar &middot; Est. 2026</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="pages/about.html">About</a>
+      <a href="pages/services.html">Services</a>
+      <a href="pages/doctors.html">Our Team</a>
+      <a href="pages/gallery.html">Gallery</a>
+      <a href="pages/insurance.html">Insurance</a>
+      <a href="pages/careers.html">Careers</a>
+      <a href="pages/contact.html" class="nav-cta">Contact Us</a>
+    </div>
+    <div class="nav-emergency"><div class="nav-emergency-dot" aria-hidden="true"></div><a href="tel:+2348094441515" style="color:inherit">Emergency: 080 9444 1515</a></div>
+    <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+  <a href="index.html">Home</a>
+  <a href="pages/about.html">About</a>
+  <a href="pages/services.html">Services</a>
+  <a href="pages/doctors.html">Our Team</a>
+  <a href="pages/gallery.html">Gallery</a>
+  <a href="pages/insurance.html">Insurance</a>
+  <a href="pages/careers.html">Careers</a>
+  <a href="pages/contact.html" class="mob-book">Contact Us</a>
+</nav>
+
+<!-- BOOKING MODAL -->
+<div class="modal-overlay" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modalTitle" style="font-size:1.45rem">Book an Appointment</h2>
+      <p>St. Luke Hospital Calabar, Fast, Easy, Secure</p>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close booking modal">&times;</button>
+    </div>
+    <div class="modal-progress">
+      <div class="progress-step active" id="ps1"></div>
+      <div class="progress-step" id="ps2"></div>
+      <div class="progress-step" id="ps3"></div>
+    </div>
+    <div class="modal-body">
+
+      <!-- STEP 1: Service + Date -->
+      <div class="step active" id="step1">
+        <p class="step-hint">Select the service you need and a preferred date.</p>
+        <div class="form-group">
+          <label for="bService">Service Required *</label>
+          <select id="bService"><option value="">Select a service</option></select>
+        </div>
+        <div class="form-group">
+          <label for="bDoctor">Preferred Doctor</label>
+          <select id="bDoctor"><option value="">No preference</option></select>
+        </div>
+        <div class="form-group">
+          <label for="bDate">Preferred Date *</label>
+          <input type="date" id="bDate">
+        </div>
+        <div class="form-group">
+          <label for="bTime">Preferred Time</label>
+          <select id="bTime"><option value="">Select a time slot</option></select>
+        </div>
+        <div class="modal-nav">
+          <button class="btn btn-primary btn-lg" onclick="goStep2()" style="width:100%;justify-content:center">Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Contact Details -->
+      <div class="step" id="step2">
+        <p class="step-hint">Please provide your contact details.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="form-group">
+            <label for="bName">Full Name *</label>
+            <input type="text" id="bName" placeholder="Your full name" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label for="bPhone">Phone Number *</label>
+            <input type="tel" id="bPhone" placeholder="08XXXXXXXXX" autocomplete="tel">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="bEmail">Email Address *</label>
+          <input type="email" id="bEmail" placeholder="your@email.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="bNotes">Additional Notes <span style="font-weight:400;color:var(--text-muted)">(optional)</span></label>
+          <textarea id="bNotes" placeholder="Briefly describe your symptoms or reason for visit..."></textarea>
+        </div>
+        <div class="modal-nav">
+          <button class="btn btn-ghost" onclick="goBack(1)">&larr; Back</button>
+          <button class="btn btn-primary" onclick="goStep3()">Review Booking &rarr;</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Review + Send -->
+      <div class="step" id="step3">
+        <p class="step-hint">Review your booking details before sending.</p>
+        <div class="review-table">
+          <div class="review-row"><span class="review-label">Service</span><span class="review-value" id="rv-service"></span></div>
+          <div class="review-row"><span class="review-label">Doctor</span><span class="review-value" id="rv-doctor"></span></div>
+          <div class="review-row"><span class="review-label">Date</span><span class="review-value" id="rv-date"></span></div>
+          <div class="review-row"><span class="review-label">Time</span><span class="review-value" id="rv-time"></span></div>
+          <div class="review-row"><span class="review-label">Name</span><span class="review-value" id="rv-name"></span></div>
+          <div class="review-row"><span class="review-label">Phone</span><span class="review-value" id="rv-phone"></span></div>
+          <div class="review-row"><span class="review-label">Email</span><span class="review-value" id="rv-email"></span></div>
+          <div class="review-row"><span class="review-label">Notes</span><span class="review-value" id="rv-notes"></span></div>
+        </div>
+        <div class="send-buttons">
+          <button class="send-btn send-wa" onclick="sendWhatsApp()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white" stroke="none" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.99 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.08-1.33A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 11.99 2z"/></svg>
+            Send via WhatsApp
+          </button>
+          <button class="send-btn send-email" onclick="sendEmail()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            Send via Email
+          </button>
+        </div>
+        <p class="send-note">Tap either button above to send your request. Your appointment is not confirmed until our team responds. We typically reply within a few hours during working hours.</p>
+        <div class="modal-nav" style="margin-top:16px">
+          <button class="btn btn-ghost btn-sm" onclick="goBack(2)" style="flex:0">&larr; Back</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- HERO -->
+<section class="hero" aria-label="Welcome">
+  <div class="hero-dots" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Trusted Private Healthcare &middot; Calabar</div>
+      <h1>Where <em>Compassion</em> Meets Excellence in Care</h1>
+      <p class="hero-lead">St. Luke Hospital Calabar delivers premium, patient-centred healthcare across gynaecology, maternity, surgery, diagnostics, and more, right in the heart of Cross River State.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary btn-lg" onclick="openModal()">Book an Appointment</button>
+        <a href="pages/services.html" class="btn btn-outline">Our Services</a>
+      </div>
+    </div>
+    <div class="hero-stats" aria-label="Hospital highlights">
+      <div class="stat-card reveal"><div class="stat-number">8+</div><div class="stat-label">Medical Services</div></div>
+      <div class="stat-card reveal"><div class="stat-number">24/7</div><div class="stat-label">Emergency Care</div></div>
+      <div class="stat-card reveal"><div class="stat-number">100%</div><div class="stat-label">Patient Privacy</div></div>
+      <div class="stat-card reveal"><div class="stat-number">5&#9733;</div><div class="stat-label">Quality Standard</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-inner">
+    <div class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> MDCN Registered Physicians</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Patient Confidentiality Guaranteed</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 24/7 Emergency Response</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Compassionate Care Always</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section" aria-labelledby="svc-h">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">What We Offer</span>
+      <h2 id="svc-h">Comprehensive Medical Services</h2>
+      <div class="divider-gold"></div>
+      <p class="section-intro">From routine consultations to complex surgeries, our expert medical team delivers world-class care across a full spectrum of services.</p>
+    </div>
+    <div class="services-grid">
+      <article class="service-card reveal">
+        <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <h3>GYN / OBGYN</h3>
+        <p>Expert women&apos;s health care including gynaecological examinations, cervical screening, and obstetric care delivered with sensitivity and professionalism.</p>
+        <a href="pages/services.html#gyn" class="service-link">Learn more &rarr;</a>
+      </article>
+      <article class="service-card reveal">
+        <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+        <h3>Antenatal &amp; Maternity</h3>
+        <p>Comprehensive antenatal care, safe delivery, and postnatal support, guiding mothers and babies through every step of the journey.</p>
+        <a href="pages/services.html#maternity" class="service-link">Learn more &rarr;</a>
+      </article>
+      <article class="service-card reveal">
+        <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <h3>General Consultation</h3>
+        <p>Thorough medical assessments, diagnosis, and treatment plans for a wide range of conditions, delivered by experienced physicians.</p>
+        <a href="pages/services.html#consultation" class="service-link">Learn more &rarr;</a>
+      </article>
+      <article class="service-card reveal">
+        <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <h3>Counselling</h3>
+        <p>Confidential, professional counselling supporting mental and emotional wellbeing in a safe, judgement-free environment.</p>
+        <a href="pages/services.html#counselling" class="service-link">Learn more &rarr;</a>
+      </article>
+      <article class="service-card reveal">
+        <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <h3>Surgery</h3>
+        <p>Elective and emergency surgical procedures by skilled surgeons in our well-equipped theatre, with full anaesthetic and post-operative support.</p>
+        <a href="pages/services.html#surgery" class="service-link">Learn more &rarr;</a>
+      </article>
+      <article class="service-card reveal">
+        <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg></div>
+        <h3>Laboratory &amp; Diagnostics</h3>
+        <p>Fast, accurate laboratory testing and diagnostics, from routine blood work to specialised panels, processed promptly and securely.</p>
+        <a href="pages/services.html#lab" class="service-link">Learn more &rarr;</a>
+      </article>
+      <article class="service-card reveal">
+        <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-8 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg></div>
+        <h3>Pharmacy</h3>
+        <p>Our fully stocked on-site pharmacy dispenses prescribed medications with pharmacists available to advise on dosage and safe use.</p>
+        <a href="pages/services.html#pharmacy" class="service-link">Learn more &rarr;</a>
+      </article>
+      <article class="service-card reveal">
+        <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <h3>Emergency Care</h3>
+        <p>Round-the-clock emergency services staffed by experienced clinicians, equipped to handle acute medical situations with speed and expertise.</p>
+        <a href="pages/services.html#emergency" class="service-link">Learn more &rarr;</a>
+      </article>
+    </div>
+    <div class="text-center" style="margin-top:44px"><a href="pages/services.html" class="btn btn-navy">View All Services</a></div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="section section-dark" aria-labelledby="why-h">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">Why St. Luke</span>
+      <h2 id="why-h" style="color:var(--white)">The Standard of Care You Deserve</h2>
+      <div class="divider-gold"></div>
+    </div>
+    <div class="why-grid">
+      <div class="why-item reveal"><div class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3>Expert Medical Team</h3><p>Our physicians and nurses bring decades of combined experience and are registered with Nigerian medical bodies.</p></div>
+      <div class="why-item reveal"><div class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Patient Privacy First</h3><p>Every consultation, record, and interaction is handled with absolute confidentiality at all times.</p></div>
+      <div class="why-item reveal"><div class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div><h3>Modern Facilities</h3><p>St. Luke is equipped with contemporary medical equipment in clean, comfortable spaces designed for healing.</p></div>
+      <div class="why-item reveal"><div class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h3>Available When You Need Us</h3><p>Emergency services are available 24/7. Consultations run during extended clinic hours throughout the week.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- OUR TEAM -->
+<section class="section" aria-labelledby="team-h">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">Our Team</span>
+      <h2 id="team-h">Led by Experience &amp; Dedication</h2>
+      <div class="divider-gold"></div>
+      <p class="section-intro">Our medical leadership brings specialist expertise and genuine compassion to every patient interaction.</p>
+    </div>
+    <div class="doctors-grid" style="max-width:780px;margin:52px auto 0">
+      <div class="doctor-card reveal">
+        <div class="doctor-photo">
+          <img src="assets/images/dr-asor.jpg" alt="Dr. Patience T. Asor, Medical Director" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="doctor-photo-ph" style="display:none"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Add doctor photo</div>
+        </div>
+        <div class="doctor-info">
+          <div class="doctor-role">Medical Director</div>
+          <h3 class="doctor-name">Dr. Patience T. Asor</h3>
+          <div class="doctor-spec">Gynaecologist &amp; Obstetrician (GYN/OBGYN)</div>
+          <p class="doctor-bio">Founder and Medical Director of St. Luke Hospital Calabar. A specialist in Gynaecology and Obstetrics, Dr. Asor established the hospital with a vision to provide accessible, high-quality, patient-centred healthcare to the people of Calabar. She leads a team dedicated to excellence and compassion in every aspect of care.</p>
+          <div class="qual-tags"><span class="qual-tag">MBBS</span><span class="qual-tag">GYN/OBGYN Specialist</span><span class="qual-tag">MDCN Registered</span></div>
+        </div>
+      </div>
+      <div class="doctor-card reveal">
+        <div class="doctor-photo">
+          <img src="assets/images/matron-ogar.jpg" alt="Matron Lily Ogar, Head of Nursing" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="doctor-photo-ph" style="display:none"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        </div>
+        <div class="doctor-info">
+          <div class="doctor-role">Head of Nursing</div>
+          <h3 class="doctor-name">Matron Lily Ogar</h3>
+          <div class="doctor-spec">Registered Nurse &amp; Midwife</div>
+          <p class="doctor-bio">Matron Lily Ogar leads the nursing team with professionalism, warmth, and unwavering dedication to patient welfare. With years of clinical nursing and midwifery experience, Matron Ogar ensures every patient receives attentive, dignified, and compassionate care from admission through discharge.</p>
+          <div class="qual-tags"><span class="qual-tag">RN</span><span class="qual-tag">Registered Midwife</span><span class="qual-tag">NMCN Registered</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center" style="margin-top:36px"><a href="pages/doctors.html" class="btn btn-navy">Meet the Full Team</a></div>
+  </div>
+</section>
+
+<!-- EMERGENCY BANNER -->
+<div class="emergency-banner" role="complementary" aria-label="Emergency contact">
+  <div class="emergency-inner">
+    <div class="emergency-text"><h3>Medical Emergency?</h3><p>Our emergency team is available 24 hours, 7 days a week.</p></div>
+    <div class="emergency-number" aria-label="Call 080 9444 1515">080 9444 1515</div>
+    <a href="tel:+2348094441515" class="btn btn-outline">Call Now</a>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section" aria-labelledby="cta-h">
+  <div class="container">
+    <span class="section-label">Get in Touch</span>
+    <h2 id="cta-h" style="color:var(--white)">Ready to See a Doctor?</h2>
+    <p>Book an appointment or reach out via WhatsApp. Our team responds promptly during clinic hours.</p>
+    <div class="cta-actions">
+      <button class="btn btn-primary btn-lg" onclick="openModal()">Book an Appointment</button>
+      <a href="https://wa.me/2348132930683" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white" stroke="none" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.99 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.08-1.33A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 11.99 2z"/></svg>
+        WhatsApp Us
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <div class="brand-cross" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="10" y="2" width="4" height="20" rx="1"/><rect x="2" y="10" width="20" height="4" rx="1"/></svg></div>
+          <span class="footer-name">St. Luke Hospital Calabar</span>
+        </div>
+        <p class="footer-desc">Premium private healthcare serving Calabar and Cross River State. Compassionate, expert, and always patient-first.</p>
+        <div class="footer-contacts">
+          <div class="footer-ci"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6 6l.86-.86a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+2348094441515" style="color:inherit">080 9444 1515</a></div>
+          <div class="footer-ci"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6 6l.86-.86a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+2348132930683" style="color:inherit">081 3293 0683</a></div>
+          <div class="footer-ci"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><a href="mailto:md@stlukehospitalcalabar.com" style="color:inherit">md@stlukehospitalcalabar.com</a></div>
+          <div class="footer-ci"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Plot 97 Ibom Layout, Off Marian Road, Calabar</div>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul>
+        <li><a href="pages/services.html#gyn">GYN / OBGYN</a></li>
+        <li><a href="pages/services.html#maternity">Antenatal & Maternity</a></li>
+        <li><a href="pages/services.html#consultation">General Consultation</a></li>
+        <li><a href="pages/services.html#surgery">Surgery</a></li>
+        <li><a href="pages/services.html#lab">Laboratory</a></li>
+        <li><a href="pages/services.html#emergency">Emergency</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Hospital</h4><ul>
+        <li><a href="pages/about.html">About Us</a></li>
+        <li><a href="pages/doctors.html">Our Team</a></li>
+        <li><a href="pages/gallery.html">Gallery</a></li>
+        <li><a href="pages/insurance.html">Insurance & HMO</a></li>
+        <li><a href="pages/careers.html">Careers</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><a href="pages/contact.html">Contact Us</a></li>
+        <li><a href="tel:+2348094441515">080 9444 1515</a></li>
+        <li><a href="https://wa.me/2348132930683" target="_blank" rel="noopener noreferrer">WhatsApp Us</a></li>
+        <li><a href="pages/contact.html#map">Find Us on Map</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 St. Luke Hospital Calabar. All rights reserved.</span>
+      <div style="display:flex;gap:18px">
+        <a href="pages/privacy.html">Privacy Policy</a>
+        <a href="pages/terms.html">Terms of Use</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
