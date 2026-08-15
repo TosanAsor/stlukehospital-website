@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="St. Luke Hospital Calabar medical services: GYN/OBGYN, maternity, surgery, laboratory, pharmacy, emergency and counselling.">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<title>Our Medical Services, St. Luke Hospital Calabar</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/png" href="../favicon.png">
+</head>
+<body>
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="navbar-inner">
+    <a href="../index.html" class="navbar-brand" aria-label="St. Luke Hospital home">
+      <div class="brand-cross" style="background:transparent;padding:0;overflow:hidden"><img src="../favicon.png" alt="St. Luke Hospital Logo" style="width:60px;height:60px;object-fit:contain;border-radius:6px"></div>
+      <div class="brand-text"><span class="brand-name">St. Luke Hospital</span><span class="brand-tagline">Calabar &middot; Est. 2026</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="doctors.html">Our Team</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="insurance.html">Insurance</a>
+      <a href="careers.html">Careers</a>
+      <a href="contact.html" class="nav-cta">Contact Us</a>
+    </div>
+    <div class="nav-emergency"><div class="nav-emergency-dot" aria-hidden="true"></div><a href="tel:+2348094441515" style="color:inherit">Emergency: 080 9444 1515</a></div>
+    <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+  <a href="../index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="services.html">Services</a>
+  <a href="doctors.html">Our Team</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="insurance.html">Insurance</a>
+  <a href="careers.html">Careers</a>
+  <a href="contact.html" class="mob-book">Contact Us</a>
+</nav>
+
+<!-- BOOKING MODAL -->
+<div class="modal-overlay" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modalTitle" style="font-size:1.45rem">Book an Appointment</h2>
+      <p>St. Luke Hospital Calabar, Fast, Easy, Secure</p>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close booking modal">&times;</button>
+    </div>
+    <div class="modal-progress">
+      <div class="progress-step active" id="ps1"></div>
+      <div class="progress-step" id="ps2"></div>
+      <div class="progress-step" id="ps3"></div>
+    </div>
+    <div class="modal-body">
+
+      <!-- STEP 1: Service + Date -->
+      <div class="step active" id="step1">
+        <p class="step-hint">Select the service you need and a preferred date.</p>
+        <div class="form-group">
+          <label for="bService">Service Required *</label>
+          <select id="bService"><option value="">Select a service</option></select>
+        </div>
+        <div class="form-group">
+          <label for="bDoctor">Preferred Doctor</label>
+          <select id="bDoctor"><option value="">No preference</option></select>
+        </div>
+        <div class="form-group">
+          <label for="bDate">Preferred Date *</label>
+          <input type="date" id="bDate">
+        </div>
+        <div class="form-group">
+          <label for="bTime">Preferred Time</label>
+          <select id="bTime"><option value="">Select a time slot</option></select>
+        </div>
+        <div class="modal-nav">
+          <button class="btn btn-primary btn-lg" onclick="goStep2()" style="width:100%;justify-content:center">Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Contact Details -->
+      <div class="step" id="step2">
+        <p class="step-hint">Please provide your contact details.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="form-group">
+            <label for="bName">Full Name *</label>
+            <input type="text" id="bName" placeholder="Your full name" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label for="bPhone">Phone Number *</label>
+            <input type="tel" id="bPhone" placeholder="08XXXXXXXXX" autocomplete="tel">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="bEmail">Email Address *</label>
+          <input type="email" id="bEmail" placeholder="your@email.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="bNotes">Additional Notes <span style="font-weight:400;color:var(--text-muted)">(optional)</span></label>
+          <textarea id="bNotes" placeholder="Briefly describe your symptoms or reason for visit..."></textarea>
+        </div>
+        <div class="modal-nav">
+          <button class="btn btn-ghost" onclick="goBack(1)">&larr; Back</button>
+          <button class="btn btn-primary" onclick="goStep3()">Review Booking &rarr;</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Review + Send -->
+      <div class="step" id="step3">
+        <p class="step-hint">Review your booking details before sending.</p>
+        <div class="review-table">
+          <div class="review-row"><span class="review-label">Service</span><span class="review-value" id="rv-service"></span></div>
+          <div class="review-row"><span class="review-label">Doctor</span><span class="review-value" id="rv-doctor"></span></div>
+          <div class="review-row"><span class="review-label">Date</span><span class="review-value" id="rv-date"></span></div>
+          <div class="review-row"><span class="review-label">Time</span><span class="review-value" id="rv-time"></span></div>
+          <div class="review-row"><span class="review-label">Name</span><span class="review-value" id="rv-name"></span></div>
+          <div class="review-row"><span class="review-label">Phone</span><span class="review-value" id="rv-phone"></span></div>
+          <div class="review-row"><span class="review-label">Email</span><span class="review-value" id="rv-email"></span></div>
+          <div class="review-row"><span class="review-label">Notes</span><span class="review-value" id="rv-notes"></span></div>
+        </div>
+        <div class="send-buttons">
+          <button class="send-btn send-wa" onclick="sendWhatsApp()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white" stroke="none" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.99 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.08-1.33A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 11.99 2z"/></svg>
+            Send via WhatsApp
+          </button>
+          <button class="send-btn send-email" onclick="sendEmail()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            Send via Email
+          </button>
+        </div>
+        <p class="send-note">Tap either button above to send your request. Your appointment is not confirmed until our team responds. We typically reply within a few hours during working hours.</p>
+        <div class="modal-nav" style="margin-top:16px">
+          <button class="btn btn-ghost btn-sm" onclick="goBack(2)" style="flex:0">&larr; Back</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="page-hero">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span>&rsaquo;</span><span style="color:var(--gold)">Our Services</span></div>
+  <h1>Our Services</h1>
+  <p>Comprehensive, expert medical care across 8 specialties.</p>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="text-center" style="margin-bottom:52px">
+      <span class="section-label">All Services</span>
+      <h2>Our Medical Services</h2>
+      <div class="divider-gold"></div>
+      <p class="section-intro">Every service at St. Luke Hospital is delivered by qualified professionals in a clean, private, and welcoming environment.</p>
+    </div>
+    
+<div id="gyn" data-service="Gynaecology &amp; Obstetrics (GYN/OBGYN)" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px;margin-bottom:24px" class="reveal">
+  <div style="display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start">
+    <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+    <div>
+      <h3 style="margin-bottom:16px">Gynaecology &amp; Obstetrics (GYN/OBGYN)</h3>
+      <p style="margin-bottom:12px">St. Luke Hospital's GYN/OBGYN unit is led by Dr. Patience T. Asor, a specialist in women's health with extensive clinical experience. We provide comprehensive gynaecological care in a private, respectful, and professional environment.</p><p style="margin-bottom:12px">Whether you are seeking routine screening, managing a specific condition, or need specialist obstetric care, our team is equipped to support you at every stage.</p>
+      <div style="margin-top:20px">
+        <p style="font-size:0.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px">Conditions & Services Covered</p>
+        <ul style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px"><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Gynaecological examinations</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Cervical cancer screening (Pap smear)</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Menstrual disorder management</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Fibroid assessment and management</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Polycystic ovary syndrome (PCOS)</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Infertility evaluation</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Menopausal care</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>STI screening and management</li></ul>
+      </div>
+      <div style="margin-top:24px"><button class="btn btn-primary" onclick="openModalWithService(this)">Book This Service</button></div>
+    </div>
+  </div>
+</div>
+    
+<div id="maternity" data-service="Antenatal &amp; Maternity Care" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px;margin-bottom:24px" class="reveal">
+  <div style="display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start">
+    <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+    <div>
+      <h3 style="margin-bottom:16px">Antenatal &amp; Maternity Care</h3>
+      <p style="margin-bottom:12px">Our maternity unit provides safe, supportive, and personalised care for expectant mothers from the earliest stages of pregnancy through to postnatal recovery.</p><p style="margin-bottom:12px">We guide mothers and their families through every step of the pregnancy journey with expertise, empathy, and the highest standard of clinical care.</p>
+      <div style="margin-top:20px">
+        <p style="font-size:0.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px">Conditions & Services Covered</p>
+        <ul style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px"><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Antenatal booking and registration</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Regular antenatal check-ups</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Ultrasound scanning</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>High-risk pregnancy management</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Labour monitoring and support</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Safe delivery (vaginal and caesarean)</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Postnatal care and review</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Newborn care and assessment</li></ul>
+      </div>
+      <div style="margin-top:24px"><button class="btn btn-primary" onclick="openModalWithService(this)">Book This Service</button></div>
+    </div>
+  </div>
+</div>
+    
+<div id="consultation" data-service="General Consultation" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px;margin-bottom:24px" class="reveal">
+  <div style="display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start">
+    <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+    <div>
+      <h3 style="margin-bottom:16px">General Medical Consultation</h3>
+      <p style="margin-bottom:12px">Our general consultation service provides thorough medical assessments, accurate diagnoses, and effective treatment plans for patients of all ages and with a wide range of conditions.</p><p style="margin-bottom:12px">Our physicians take the time to listen carefully to your concerns, explain findings clearly, and work with you to develop the best plan for your health.</p>
+      <div style="margin-top:20px">
+        <p style="font-size:0.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px">Conditions & Services Covered</p>
+        <ul style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px"><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>General health assessments</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Chronic disease management (diabetes, hypertension)</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Infectious disease treatment</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Respiratory conditions</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Gastrointestinal complaints</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Skin conditions</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Referrals to specialist services</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Preventive care and health advice</li></ul>
+      </div>
+      <div style="margin-top:24px"><button class="btn btn-primary" onclick="openModalWithService(this)">Book This Service</button></div>
+    </div>
+  </div>
+</div>
+    
+<div id="counselling" data-service="Counselling" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px;margin-bottom:24px" class="reveal">
+  <div style="display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start">
+    <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+    <div>
+      <h3 style="margin-bottom:16px">Counselling Services</h3>
+      <p style="margin-bottom:12px">At St. Luke Hospital, we recognise that good health encompasses mental and emotional wellbeing, not just physical health. Our counselling services provide a safe, confidential, and non-judgmental space for patients to address personal and emotional challenges.</p><p style="margin-bottom:12px">All sessions are conducted with absolute privacy and respect.</p>
+      <div style="margin-top:20px">
+        <p style="font-size:0.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px">Conditions & Services Covered</p>
+        <ul style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px"><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Grief and bereavement counselling</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Relationship and family counselling</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Stress and anxiety management</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Post-natal depression support</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Trauma and crisis counselling</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Chronic illness emotional support</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Substance use counselling</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Adolescent and youth counselling</li></ul>
+      </div>
+      <div style="margin-top:24px"><button class="btn btn-primary" onclick="openModalWithService(this)">Book This Service</button></div>
+    </div>
+  </div>
+</div>
+    
+<div id="surgery" data-service="Surgery" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px;margin-bottom:24px" class="reveal">
+  <div style="display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start">
+    <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+    <div>
+      <h3 style="margin-bottom:16px">Surgical Services</h3>
+      <p style="margin-bottom:12px">St. Luke Hospital&apos;s surgical unit is equipped to perform a range of elective and emergency surgical procedures. All procedures are carried out by experienced surgeons in a fully equipped theatre, with complete anaesthetic and post-operative care.</p><p style="margin-bottom:12px">Patient safety and comfort are our highest priorities throughout the surgical journey.</p>
+      <div style="margin-top:20px">
+        <p style="font-size:0.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px">Conditions & Services Covered</p>
+        <ul style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px"><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Minor surgical procedures</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Abdominal surgery</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Gynaecological surgery</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Caesarean sections</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Hernia repair</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Appendicectomy</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Wound care and debridement</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Post-operative recovery care</li></ul>
+      </div>
+      <div style="margin-top:24px"><button class="btn btn-primary" onclick="openModalWithService(this)">Book This Service</button></div>
+    </div>
+  </div>
+</div>
+    
+<div id="lab" data-service="Laboratory &amp; Diagnostics" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px;margin-bottom:24px" class="reveal">
+  <div style="display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start">
+    <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg></div>
+    <div>
+      <h3 style="margin-bottom:16px">Laboratory &amp; Diagnostics</h3>
+      <p style="margin-bottom:12px">Our in-house laboratory provides fast, accurate, and reliable diagnostic testing to support clinical decision-making. Results are processed promptly and handled with complete confidentiality.</p><p style="margin-bottom:12px">We offer a comprehensive range of tests for routine health checks and specific diagnostic needs.</p>
+      <div style="margin-top:20px">
+        <p style="font-size:0.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px">Conditions & Services Covered</p>
+        <ul style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px"><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Full blood count (FBC)</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Blood chemistry and metabolic panels</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Liver and kidney function tests</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Thyroid function tests</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Pregnancy tests</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Sexually transmitted infection (STI) panels</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Malaria and typhoid testing</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Urinalysis and microscopy</li></ul>
+      </div>
+      <div style="margin-top:24px"><button class="btn btn-primary" onclick="openModalWithService(this)">Book This Service</button></div>
+    </div>
+  </div>
+</div>
+    
+<div id="pharmacy" data-service="Pharmacy Consultation" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px;margin-bottom:24px" class="reveal">
+  <div style="display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start">
+    <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-8 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg></div>
+    <div>
+      <h3 style="margin-bottom:16px">Pharmacy Services</h3>
+      <p style="margin-bottom:12px">Our fully stocked on-site pharmacy ensures that patients can access their prescribed medications quickly and conveniently after consultations.</p><p style="margin-bottom:12px">Our qualified pharmacists are available to provide counselling on medications, explain correct dosage and administration, and advise on potential interactions.</p>
+      <div style="margin-top:20px">
+        <p style="font-size:0.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px">Conditions & Services Covered</p>
+        <ul style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px"><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Dispensing of prescribed medications</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Over-the-counter medications</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Patient medication counselling</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Dosage and administration advice</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Drug interaction checks</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Chronic disease medication management</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Maternal and antenatal supplements</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Paediatric medication dispensing</li></ul>
+      </div>
+      <div style="margin-top:24px"><button class="btn btn-primary" onclick="openModalWithService(this)">Book This Service</button></div>
+    </div>
+  </div>
+</div>
+    
+<div id="emergency" data-service="Emergency Care" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px;margin-bottom:24px" class="reveal">
+  <div style="display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start">
+    <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+    <div>
+      <h3 style="margin-bottom:16px">Emergency Care</h3>
+      <p style="margin-bottom:12px">Our emergency unit operates 24 hours a day, 7 days a week. It is staffed by trained clinicians equipped to assess and manage acute medical emergencies with speed, precision, and calm professionalism.</p><p style="margin-bottom:12px">In a medical emergency, call us immediately on 080 9444 1515. Do not delay.</p>
+      <div style="margin-top:20px">
+        <p style="font-size:0.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px">Conditions & Services Covered</p>
+        <ul style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px"><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Acute medical emergencies</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Trauma and injury management</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Obstetric emergencies</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Paediatric emergencies</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Respiratory distress</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Cardiac events (stabilisation)</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Severe infection and sepsis</li><li style="display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text-mid)"><span style="color:var(--gold);font-weight:700">&bull;</span>Post-surgical emergencies</li></ul>
+      </div>
+      <div style="margin-top:24px"><button class="btn btn-primary" onclick="openModalWithService(this)">Book This Service</button></div>
+    </div>
+  </div>
+</div>
+  </div>
+</section>
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <div class="brand-cross" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="10" y="2" width="4" height="20" rx="1"/><rect x="2" y="10" width="20" height="4" rx="1"/></svg></div>
+          <span class="footer-name">St. Luke Hospital Calabar</span>
+        </div>
+        <p class="footer-desc">Premium private healthcare serving Calabar and Cross River State. Compassionate, expert, and always patient-first.</p>
+        <div class="footer-contacts">
+          <div class="footer-ci"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6 6l.86-.86a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+2348094441515" style="color:inherit">080 9444 1515</a></div>
+          <div class="footer-ci"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6 6l.86-.86a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+2348132930683" style="color:inherit">081 3293 0683</a></div>
+          <div class="footer-ci"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><a href="mailto:md@stlukehospitalcalabar.com" style="color:inherit">md@stlukehospitalcalabar.com</a></div>
+          <div class="footer-ci"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Plot 97 Ibom Layout, Off Marian Road, Calabar</div>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul>
+        <li><a href="../pages/services.html#gyn">GYN / OBGYN</a></li>
+        <li><a href="../pages/services.html#maternity">Antenatal & Maternity</a></li>
+        <li><a href="../pages/services.html#consultation">General Consultation</a></li>
+        <li><a href="../pages/services.html#surgery">Surgery</a></li>
+        <li><a href="../pages/services.html#lab">Laboratory</a></li>
+        <li><a href="../pages/services.html#emergency">Emergency</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Hospital</h4><ul>
+        <li><a href="../pages/about.html">About Us</a></li>
+        <li><a href="../pages/doctors.html">Our Team</a></li>
+        <li><a href="../pages/gallery.html">Gallery</a></li>
+        <li><a href="../pages/insurance.html">Insurance & HMO</a></li>
+        <li><a href="../pages/careers.html">Careers</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><a href="../pages/contact.html">Contact Us</a></li>
+        <li><a href="tel:+2348094441515">080 9444 1515</a></li>
+        <li><a href="https://wa.me/2348132930683" target="_blank" rel="noopener noreferrer">WhatsApp Us</a></li>
+        <li><a href="../pages/contact.html#map">Find Us on Map</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 St. Luke Hospital Calabar. All rights reserved.</span>
+      <div style="display:flex;gap:18px">
+        <a href="../pages/privacy.html">Privacy Policy</a>
+        <a href="../pages/terms.html">Terms of Use</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
