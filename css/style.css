@@ -509,3 +509,24 @@ html, body {
     gap: 16px !important;
   }
 }
+
+
+/* Doctor photo height fix */
+.doctor-photo {
+  height: 480px;
+}
+
+.doctor-photo img {
+  object-fit: cover;
+  object-position: center 10%;
+}
+
+@media(max-width: 768px) {
+  .doctor-photo {
+    height: 350px;
+  }
+
+  .doctor-photo img {
+    object-position: center 5%;
+  }
+}
